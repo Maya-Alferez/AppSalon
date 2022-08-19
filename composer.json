@@ -1,0 +1,21 @@
+{
+    "name": "maya/appsalon_mvc",
+    "description": "Proyecto con PHP, Gulp, SASS, MySQL, Composer y JS",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "MVC\\" : "./",
+            "Controllers\\" : "./controllers",
+            "Model\\" : "./models",
+            "Classes\\" : "./classes"
+        }
+    },
+    "authors": [
+        {
+            "name": "Maya Alférez"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.6"
+    }
+}
