@@ -1,3 +1,5 @@
+const { resume } = require("browser-sync");
+
 let paso = 1;
 const pasoInicial = 1;
 const pasoFinal = 3;
@@ -225,9 +227,16 @@ function mostrarAlerta(mensaje, tipo, elemento, desaparece = true) {
 function mostrarResumen() {
     const resumen = document.querySelector('.contenido-resumen');
 
-    if(Object.values(cita).includes('') || cita.servicios.lenght === 0) {
-        mostrarAlerta('Falta agregar datos de servicio, fecha u hora', 'error', '.contenido-resumen', false);
-    } else {
-        console.log('ok C:');
+    //Limpiar el contenido de resumen
+    while(resumen.firstChild) {
+        resumen.removeChild(resumen.firstChild);
     }
+
+    if(Object.values(cita).includes('') || cita.servicios.lenght === 0) {
+        mostrarAlerta('falta datos de servicios, fecha, hora', 'error', '.contenido-resumen', false);
+        return;
+    }
+
+    console.log('Todo bien C:');
+    
 }
