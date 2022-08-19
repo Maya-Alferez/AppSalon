@@ -16,6 +16,6 @@
         </div>
     </div>
 
-    <?php echo $script ?? ''; ?>;
+    <?php echo $script ?? ''; ?>
 </body>
 </html>
