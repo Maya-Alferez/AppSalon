@@ -175,7 +175,7 @@ function seleccionarFecha() {
 
         if( [6, 0].includes(dia)) {
             e.target.value = '';
-            mostrarAlerta('Fines de semana no permitidos', 'error');
+            mostrarAlerta('Fines de semana no permitidos', 'error', '.formulario');
         } else {
             cita.fecha = e.target.value;
         }
@@ -189,7 +189,7 @@ function seleccionarHora() {
         const hora = horaCita.split(":")[0];
         if(hora < 10 || hora > 18) {
             e.target.value='';
-            mostrarAlerta('Hora no valida', 'error');
+            mostrarAlerta('Hora no valida', 'error', '.formulario');
         } else {
             cita.hora = e.target.value;
             console.log(cita);
@@ -198,31 +198,35 @@ function seleccionarHora() {
     
 }
 
-function mostrarAlerta(mensaje, tipo) {
+function mostrarAlerta(mensaje, tipo, elemento, desaparece = true) {
 
     //Previene que se genere más de una alerta
     const alertaPrevia = document.querySelector('.alerta');
-    if(alertaPrevia) return;
+    if(alertaPrevia) {
+        alertaPrevia.remove();
+    }
 
     //Scripting para crear la alerta
     const alerta = document.createElement('DIV');
     alerta.textContent = mensaje;
     alerta.classList.add('alerta');
     alerta.classList.add(tipo);
-    const formulario = document.querySelector('.formulario');
-    formulario.appendChild(alerta);
+    const referencia = document.querySelector(elemento);
+    referencia.appendChild(alerta);
 
     //Eliminar la alerta
-    setTimeout(() => {
-        alerta.remove();
-    }, 3000);
-
+    if(desaparece){
+        setTimeout(() => {
+            alerta.remove();
+        }, 3000);
+    }
 }
 
 function mostrarResumen() {
     const resumen = document.querySelector('.contenido-resumen');
-    if(Object.values(cita).includes('')) {
-        console.log('Hace falta datos');
+
+    if(Object.values(cita).includes('') || cita.servicios.lenght === 0) {
+        mostrarAlerta('Falta agregar datos de servicio, fecha u hora', 'error', '.contenido-resumen', false);
     } else {
         console.log('ok C:');
     }
