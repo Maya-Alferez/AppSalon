@@ -161,8 +161,6 @@ function seleccionarServicio(servicio) {
         cita.servicios = [...servicios, servicio];
         divServicio.classList.add('seleccionado');
     }
-
-    console.log(cita);
 }
 
 function nombreCliente() {
@@ -193,7 +191,6 @@ function seleccionarHora() {
             mostrarAlerta('Hora no valida', 'error', '.formulario');
         } else {
             cita.hora = e.target.value;
-            console.log(cita);
         }
     });
     
@@ -235,8 +232,6 @@ function mostrarResumen() {
         mostrarAlerta('falta datos de servicios, fecha, hora', 'error', '.contenido-resumen', false);
         return;
     }
-
-    console.log('Todo bien C:');
 
     //Formatear el div de resumen
     const { nombre, fecha, hora, servicios } = cita;
@@ -288,8 +283,36 @@ function mostrarResumen() {
     const horaCita = document.createElement('P');
     horaCita.innerHTML = `<span>Hora:</span> ${hora} Horas`;
 
+    //Boton para crear una cita
+    const botonReservar = document.createElement('BUTTON');
+    botonReservar.classList.add('boton');
+    botonReservar.textContent = 'Reservar cita';
+    botonReservar.onclick = reservarCita;
+
     resumen.appendChild(nombreCliente);
     resumen.appendChild(fechaCita);
     resumen.appendChild(horaCita);
+    resumen.appendChild(botonReservar);
     
+}
+
+async function reservarCita() {
+    const { nombre, fecha, hora, servicios } = cita;
+    const idServicios = servicios.map( servicio => servicio.id );
+
+    const datos = new FormData();
+    datos.append('nombre', nombre);
+    datos.append('fecha', fecha);
+    datos.append('hora', hora);
+    datos.append('servicios', idServicios);
+
+    //Petición hacia la api
+    const url = 'http://localhost:3000/api/citas';
+    const respuesta = await fetch(url, {
+        method:'POST',
+        body: datos
+    });
+
+    const resultado = await respuesta.json();
+    console.log(resultado);
 }
