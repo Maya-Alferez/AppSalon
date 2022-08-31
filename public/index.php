@@ -6,6 +6,7 @@ use MVC\Router;
 use Controllers\LoginController;
 use Controllers\CitaController;
 use Controllers\APIController;
+use Controllers\AdminController;
 $router = new Router();
 
 //Iniciar sesión
@@ -29,6 +30,7 @@ $router->get('/mensaje', [LoginController::class, 'mensaje']);
 
 //Cuenta privada(admin)
 $router->get('/cita', [CitaController::class, 'index']);
+$router->get('/admin', [AdminController::class, 'index']);
 
 // API de citas
 $router->get('/api/servicios', [APIController::class, 'index']);
