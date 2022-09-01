@@ -32,7 +32,7 @@
                 $idCita = $cita->id;
             } //Fin del if ?>
             <p class="servicio"><?php echo $cita->servicio . " $" . $cita->precio; ?></p>
-        </li>
-        <?php } //Fin del forEach?>
+        
+        <?php } //Fin del forEach ?>
     </ul>
 </div>
