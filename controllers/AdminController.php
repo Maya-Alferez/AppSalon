@@ -8,6 +8,7 @@ class AdminController {
 
     public static function index( Router $router ) {
         //session_start();
+        $fecha = date('Y-m-d');
         
         //Consultar BD
         $consulta = "SELECT citas.id, citas.hora, CONCAT( usuarios.nombre, ' ', usuarios.apellido) as cliente, ";
@@ -25,7 +26,8 @@ class AdminController {
         
         $router->render('admin/index', [
             'nombre' => $_SESSION['nombre'],
-            'citas' => $citas
+            'citas' => $citas,
+            'fecha' => $fecha
         ]);
     }
 }
